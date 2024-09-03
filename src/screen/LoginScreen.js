@@ -8,7 +8,7 @@ import {
     Text,
 } from "react-native";
 
-const LoginScreen = () => {
+const LoginScreen = ({ onLoginSuccess }) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
@@ -23,8 +23,9 @@ const LoginScreen = () => {
             );
 
             if (user) {
-                console.log("Login successfully");
-                Alert.alert("Login success"); 
+                // console.log("Login successfully");
+                // Alert.alert("Login success");
+                onLoginSuccess();
             } else {
                 Alert.alert("Login failed", "Invalid username or password");
             }
@@ -63,7 +64,7 @@ const styles = StyleSheet.create({
         display: "flex",
         justifyContent: "center",
         paddingHorizontal: 30,
-        paddingTop: 20,
+        paddingTop: 50,
         rowGap: 15,
     },
     inputText: {
