@@ -19,13 +19,16 @@ const HomeScreen = () => {
 
     // call API
     useEffect(() => {
-        fetch("https://66d66d05006bfbe2e64d6982.mockapi.io/api/v1/user")
-            .then((res) => res.json())
-            .then((data) => {
-                setUsers(data);
-                setFilteredUsers(data); // cập nhật state "filteredUsers"
-            })
-            .catch((error) => console.log(error));
+        const fetchData = () => {
+            fetch("https://66d66d05006bfbe2e64d6982.mockapi.io/api/v1/user")
+                .then((res) => res.json())
+                .then((data) => {
+                    setUsers(data);
+                    setFilteredUsers(data); // cập nhật state "filteredUsers"
+                })
+                .catch((error) => console.log(error));
+        };
+        fetchData();
     }, []);
 
     // FlatList render
@@ -102,7 +105,7 @@ export default HomeScreen;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingTop: 20,
+        paddingTop: 10,
     },
     picker: {
         height: 50,
