@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import LoginScreen from "../screen/LoginScreen";
 import HomeScreen from "../screen/HomeScreen";
-import ManageUserScreen from "../screen/ManageUserScreen"
+import ManageUserScreen from "../screen/ManageUserScreen";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import UserDetailScreen from "../screen/UserDetailScreen";
 
 const Stack = createStackNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -18,10 +19,7 @@ const AppNavigator = () => {
     const BottomTabNav = () => {
         return (
             <BottomTab.Navigator>
-                <BottomTab.Screen
-                    name="Home"
-                    component={HomeScreen}
-                />
+                <BottomTab.Screen name="Home" component={HomeScreen} />
                 <BottomTab.Screen
                     name="Manage User"
                     component={ManageUserScreen}
@@ -52,6 +50,8 @@ const AppNavigator = () => {
                 component={BottomTabNav}
                 options={{ headerShown: false }}
             />
+
+            <Stack.Screen name="User Detail" component={UserDetailScreen} />
         </Stack.Navigator>
     );
 };

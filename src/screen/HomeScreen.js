@@ -1,5 +1,5 @@
-import { Picker } from "@react-native-picker/picker";
 import { useEffect, useState } from "react";
+import { Picker } from "@react-native-picker/picker";
 import {
     ActionSheetIOS,
     FlatList,
@@ -11,8 +11,10 @@ import {
     View,
 } from "react-native";
 import { capitalize } from "../utils/utils";
+import { useNavigation } from "@react-navigation/native";
 
 const HomeScreen = () => {
+    const navigation = useNavigation();
     const [users, setUsers] = useState([]);
     const [filter, setFilter] = useState("all");
     const [filteredUsers, setFilteredUsers] = useState([]);
@@ -33,7 +35,10 @@ const HomeScreen = () => {
 
     // FlatList render
     const renderItem = ({ item }) => (
-        <TouchableOpacity style={styles.card}>
+        <TouchableOpacity
+            style={styles.card}
+            onPress={() => navigation.navigate("User Detail", { user: item })}
+        >
             <Image source={{ uri: item.image }} style={styles.image} />
             <View style={styles.cardContent}>
                 <Text style={styles.title}>{item.fullname}</Text>
