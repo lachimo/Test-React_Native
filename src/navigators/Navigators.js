@@ -5,6 +5,7 @@ import HomeScreen from "../screen/HomeScreen";
 import ManageUserScreen from "../screen/ManageUserScreen";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import UserDetailScreen from "../screen/UserDetailScreen";
+import UserScreen from "../screen/UserScreen";
 
 const Stack = createStackNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -16,7 +17,7 @@ const AppNavigator = () => {
         setIsLoggedIn(true);
     };
 
-    const BottomTabNav = () => {
+    const TabNav = () => {
         return (
             <BottomTab.Navigator>
                 <BottomTab.Screen name="Home" component={HomeScreen} />
@@ -46,12 +47,13 @@ const AppNavigator = () => {
 
         <Stack.Navigator>
             <Stack.Screen
-                name="BottomTabNav"
-                component={BottomTabNav}
+                name="Back"
+                component={TabNav}
                 options={{ headerShown: false }}
             />
 
             <Stack.Screen name="User Detail" component={UserDetailScreen} />
+            <Stack.Screen name="Create User" component={UserScreen} />
         </Stack.Navigator>
     );
 };

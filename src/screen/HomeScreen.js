@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Picker } from "@react-native-picker/picker";
 import {
     ActionSheetIOS,
@@ -11,7 +11,7 @@ import {
     View,
 } from "react-native";
 import { capitalize } from "../utils/utils";
-import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 
 const HomeScreen = () => {
     const navigation = useNavigation();
@@ -20,18 +20,21 @@ const HomeScreen = () => {
     const [filteredUsers, setFilteredUsers] = useState([]);
 
     // call API
-    useEffect(() => {
-        const fetchData = () => {
-            fetch("https://66d66d05006bfbe2e64d6982.mockapi.io/api/v1/user")
-                .then((res) => res.json())
-                .then((data) => {
-                    setUsers(data);
-                    setFilteredUsers(data); // cập nhật state "filteredUsers"
-                })
-                .catch((error) => console.log(error));
-        };
-        fetchData();
-    }, []);
+    const fetchData = () => {
+        fetch("https://66d66d05006bfbe2e64d6982.mockapi.io/api/v1/user")
+            .then((res) => res.json())
+            .then((data) => {
+                setUsers(data);
+                setFilteredUsers(data); // cập nhật state "filteredUsers"
+            })
+            .catch((error) => console.log(error));
+    };
+    // Sử dụng useFocusEffect để gọi fetchUsers mỗi khi HomeScreen được focus
+    useFocusEffect(
+        useCallback(() => {
+            fetchData(); // Cập nhật danh sách user khi màn hình được focus
+        }, [])
+    );
 
     // FlatList render
     const renderItem = ({ item }) => (

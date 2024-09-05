@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import {
     FlatList,
@@ -10,15 +11,16 @@ import {
 import Icon from "react-native-vector-icons/FontAwesome";
 
 const ManageUserScreen = () => {
+    const navigation = useNavigation();
     const [users, setUsers] = useState([]);
     // call API
+    const fetchData = () => {
+        fetch("https://66d66d05006bfbe2e64d6982.mockapi.io/api/v1/user")
+            .then((res) => res.json())
+            .then((data) => setUsers(data))
+            .catch((error) => console.log(error));
+    };
     useEffect(() => {
-        const fetchData = () => {
-            fetch("https://66d66d05006bfbe2e64d6982.mockapi.io/api/v1/user")
-                .then((res) => res.json())
-                .then((data) => setUsers(data))
-                .catch((error) => console.log(error));
-        };
         fetchData();
     }, []);
 
@@ -62,6 +64,14 @@ const ManageUserScreen = () => {
                 renderItem={renderItem}
                 keyExtractor={(item) => item.id.toString()}
             />
+            <TouchableOpacity
+                style={styles.addButton}
+                onPress={() =>
+                    navigation.navigate("Create User", { fetchData })
+                }
+            >
+                <Icon name="plus" size={20} color="black" />
+            </TouchableOpacity>
         </View>
     );
 };
@@ -91,12 +101,15 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         gap: 10,
     },
+
     addButton: {
-        position: "absolute",
-        bottom: 20,
-        right: 20,
-        backgroundColor: "blue",
+        display: "flex",
+        alignItems: "center",
+        alignSelf: "flex-end",
+        maxWidth: 50,
+        backgroundColor: "#ffcef6",
         borderRadius: 50,
         padding: 15,
+        marginBottom: 10,
     },
 });
