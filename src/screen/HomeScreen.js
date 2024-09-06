@@ -32,6 +32,7 @@ const HomeScreen = () => {
     // Sử dụng useFocusEffect để gọi fetchUsers mỗi khi HomeScreen được focus
     useFocusEffect(
         useCallback(() => {
+            setFilter("all");
             fetchData(); // Cập nhật danh sách user khi màn hình được focus
         }, [])
     );

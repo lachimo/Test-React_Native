@@ -30,30 +30,35 @@ const AppNavigator = () => {
     };
 
     return (
-        // <Stack.Navigator screenOptions={{ headerShown: false }}>
-        //     {!isLoggedIn ? (
-        //         <Stack.Screen name="Login" options={{ headerShown: false }}>
-        //             {(props) => (
-        //                 <LoginScreen
-        //                     {...props}
-        //                     onLoginSuccess={handleLoginSuccess}
-        //                 />
-        //             )}
-        //         </Stack.Screen>
-        //     ) : (
-        //         <Stack.Screen name="BottomTabNav" component={BottomTabNav} />
-        //     )}
-        // </Stack.Navigator>
-
-        <Stack.Navigator>
-            <Stack.Screen
-                name="Back"
-                component={TabNav}
-                options={{ headerShown: false }}
-            />
-
-            <Stack.Screen name="User Detail" component={UserDetailScreen} />
-            <Stack.Screen name="Create User" component={UserScreen} />
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+            {!isLoggedIn ? (
+                <Stack.Screen name="Login" options={{ headerShown: false }}>
+                    {(props) => (
+                        <LoginScreen
+                            {...props}
+                            onLoginSuccess={handleLoginSuccess}
+                        />
+                    )}
+                </Stack.Screen>
+            ) : (
+                <>
+                    <Stack.Screen
+                        name="Back"
+                        component={TabNav}
+                        options={{ headerShown: false }}
+                    />
+                    <Stack.Screen
+                        name="User Detail"
+                        component={UserDetailScreen}
+                        options={{ headerShown: true }}
+                    />
+                    <Stack.Screen
+                        name="Create User"
+                        component={UserScreen}
+                        options={{ headerShown: true }}
+                    />
+                </>
+            )}
         </Stack.Navigator>
     );
 };
